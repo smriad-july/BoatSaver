@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Save The Boat 🚤</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🚤 Save The Boat</h1>
+<p>Tap / Click to remove water • Survive as long as you can</p>
+
+<div id="game">
+  <!-- Animated Boat -->
+  <div id="boat">
+    <div class="boat-side left"></div>
+    <div class="boat-bottom"></div>
+    <div class="boat-side right"></div>
+    <div class="boat-seat"></div>
+    <div class="boat-seat seat2"></div>
+    <div class="boat-flag-circle"></div>
+  </div>
+  
+  <div id="water"></div>
+
+  <!-- Animated Character -->
+  <div id="player">
+    <img src="character.png" class="player-head" alt="Hero">
+    <div class="player-body"></div>
+    <div class="player-arm left-arm"></div>
+    <div class="player-arm right-arm"></div>
+    <div class="player-bucket"></div>
+  </div>
+  
+  <!-- Water drops container -->
+  <div id="waterDrops"></div>
+</div>
+
+<div id="hud">
+  ⏱️ Time: <span id="time">0</span>s
+  <button id="saveBtn" style="display:none;">💾 Save Score</button>
+</div>
+
+<!-- Score Card for Screenshot -->
+<div id="scoreCard" style="display:none;">
+  <div class="score-content">
+    <h2>🚤 Boat Saver</h2>
+    <div class="score-image">
+      <div class="score-boat">🚢</div>
+      <div class="score-time">⏱️ Time Survived</div>
+      <div class="score-value" id="scoreValue">0s</div>
+    </div>
+    <p class="score-message">You saved the boat!</p>
+    <p class="score-date" id="scoreDate"></p>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

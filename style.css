@@ -1,0 +1,434 @@
+body {
+  margin: 0;
+  background: transparent;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #222;
+  min-height: 100vh;
+}
+
+html {
+  background: linear-gradient(to bottom, #87CEEB 0%, #B8A588 50%, #8B7355 100%);
+  min-height: 100vh;
+}
+
+h1 {
+  margin: 10px 0 0;
+}
+
+p {
+  margin: 5px 0 10px;
+}
+
+#game {
+  position: relative;
+  width: 700px;
+  height: 450px;
+  margin: 0 auto;
+  background: url('padma.jpg') center center/cover no-repeat;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 4px solid #5A4A30;
+  box-shadow: 0 10px 30px rgba(90, 74, 48, 0.5);
+}
+
+/* Boat */
+#boat {
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+  width: 500px;
+  height: 180px;
+  z-index: 2;
+  animation: boatRock 3s ease-in-out infinite;
+}
+
+@keyframes boatRock {
+  0%, 100% {
+    transform: rotate(-0.5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0.5deg) translateY(-5px);
+  }
+}
+
+.boat-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  width: 400px;
+  height: 80px;
+  background: linear-gradient(to bottom, #006A4E, #00563E);
+  border-radius: 0 0 200px 200px;
+  border: 4px solid #00563E;
+  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3);
+}
+
+.boat-side {
+  position: absolute;
+  bottom: 70px;
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(to right, #007A5E, #006A4E);
+  border: 3px solid #00563E;
+}
+
+.boat-side.left {
+  left: 40px;
+  border-radius: 20px 0 0 10px;
+  transform: skewY(-3deg);
+}
+
+.boat-side.right {
+  right: 40px;
+  border-radius: 0 20px 10px 0;
+  transform: skewY(3deg);
+}
+
+.boat-seat {
+  position: absolute;
+  bottom: 100px;
+  left: 150px;
+  width: 80px;
+  height: 12px;
+  background: #006A4E;
+  border-radius: 6px;
+  border: 2px solid #00563E;
+}
+
+.boat-seat.seat2 {
+  left: 270px;
+}
+
+/* Bangladesh Flag Red Circle */
+.boat-flag-circle {
+  position: absolute;
+  bottom: 15px;
+  left: 225px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #F42A41, #D91F36);
+  border-radius: 50%;
+  z-index: 5;
+  box-shadow: 0 0 20px rgba(244, 42, 65, 0.5);
+}
+
+/* Water inside boat */
+#water {
+  position: absolute;
+  bottom: 5px;
+  left: 155px;
+  width: 390px;
+  height: 0;
+  max-height: 140px;
+  background: rgba(30, 144, 255, 0.7);
+  z-index: 3;
+  transition: height 0.2s;
+  border-radius: 0 0 195px 195px;
+  overflow: hidden;
+}
+
+/* Player */
+#player {
+  position: absolute;
+  bottom: 90px;
+  left: 180px;
+  width: 50px;
+  height: 70px;
+  z-index: 4;
+  pointer-events: none;
+  transition: transform 0.1s;
+}
+
+.player-head {
+  position: absolute;
+  top: -5px;
+  left: 8px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #D4A574;
+  object-fit: cover;
+  background: #FFD1A3;
+}
+
+.player-body {
+  position: absolute;
+  top: 32px;
+  left: 10px;
+  width: 30px;
+  height: 35px;
+  background: linear-gradient(to bottom, #4A90E2, #357ABD);
+  border-radius: 8px;
+  border: 2px solid #2868A8;
+}
+
+.player-arm {
+  position: absolute;
+  top: 32px;
+  width: 8px;
+  height: 25px;
+  background: #FFD1A3;
+  border-radius: 4px;
+  border: 1px solid #D4A574;
+}
+
+.player-arm.left-arm {
+  left: 5px;
+  transform: rotate(-20deg);
+  animation: armMove 0.6s ease-in-out infinite;
+}
+
+.player-arm.right-arm {
+  right: 5px;
+  transform: rotate(20deg);
+  animation: armMove 0.6s ease-in-out infinite reverse;
+}
+
+@keyframes armMove {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(-40deg); }
+}
+
+.player-bucket {
+  position: absolute;
+  top: 50px;
+  left: 18px;
+  width: 14px;
+  height: 12px;
+  background: #888;
+  border-radius: 2px 2px 4px 4px;
+  border: 2px solid #555;
+}
+
+.player-bucket::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 2px;
+  width: 10px;
+  height: 2px;
+  background: #666;
+  border-radius: 2px;
+}
+
+#player.bailing {
+  animation: bail 0.3s ease-out;
+}
+
+@keyframes bail {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Enemy */
+.enemy {
+  position: absolute;
+  bottom: 90px;
+  width: 45px;
+  height: 55px;
+  z-index: 4;
+  animation: enemyBob 1.5s ease-in-out infinite;
+}
+
+@keyframes enemyBob {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+.enemy-body {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enemy-face {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #8B0000;
+}
+
+.enemy-bucket {
+  position: absolute;
+  top: 35px;
+  left: 12px;
+  width: 20px;
+  height: 18px;
+  background: linear-gradient(to bottom, #666, #444);
+  border-radius: 3px 3px 6px 6px;
+  border: 2px solid #222;
+}
+
+.enemy-bucket::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 4px;
+  width: 12px;
+  height: 3px;
+  background: #555;
+  border-radius: 2px;
+}
+
+@keyframes enemyFloat {
+  0%, 100% { transform: translateY(0px) rotate(-5deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+.enemy.pouring {
+  animation: pour 0.8s ease-in-out;
+}
+
+@keyframes pour {
+  0% { transform: rotate(-5deg); }
+  25% { transform: rotate(-20deg) translateY(-5px); }
+  75% { transform: rotate(-20deg) translateY(-5px); }
+  100% { transform: rotate(-5deg); }
+}
+
+/* Water drops from enemy */
+.waterDrop {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  background: radial-gradient(circle, #6BB6FF, #1E7ACC);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  z-index: 6;
+  animation: dropFall 1s ease-in forwards;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 3px rgba(0, 100, 200, 0.4));
+}
+
+@keyframes dropFall {
+  0% {
+    transform: rotate(45deg) translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  70% {
+    transform: rotate(45deg) translateY(200px) scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(45deg) translateY(240px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Splash effect when clicking */
+.splash {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgba(77, 166, 255, 0.8), transparent);
+  border-radius: 50%;
+  z-index: 7;
+  animation: splashAnim 0.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes splashAnim {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+#hud {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#saveBtn {
+  margin-left: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #006A4E, #00563E);
+  color: white;
+  border: 2px solid #F42A41;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#saveBtn:hover {
+  background: linear-gradient(135deg, #F42A41, #D91F36);
+  border-color: #006A4E;
+  transform: scale(1.05);
+}
+
+/* Score Card */
+#scoreCard {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
+  width: 400px;
+  height: 350px;
+  background: linear-gradient(to bottom, #006A4E, #00563E);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.score-content {
+  text-align: center;
+  color: white;
+}
+
+.score-content h2 {
+  font-size: 36px;
+  margin: 20px 0;
+  color: white;
+}
+
+.score-image {
+  margin: 30px 0;
+}
+
+.score-boat {
+  font-size: 60px;
+  margin: 20px 0;
+}
+
+.score-time {
+  font-size: 24px;
+  margin: 10px 0;
+  color: #FFD700;
+}
+
+.score-value {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #FFD700;
+}
+
+.score-message {
+  font-size: 20px;
+  margin: 20px 0;
+  color: #CCCCCC;
+}
+
+.score-date {
+  font-size: 14px;
+  color: #999999;
+  margin-top: 10px;
+}
