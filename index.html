@@ -38,20 +38,22 @@
 
 <div id="hud">
   ⏱️ Time: <span id="time">0</span>s
-  <button id="saveBtn" style="display:none;">💾 Save Score</button>
 </div>
 
-<!-- Score Card for Screenshot -->
-<div id="scoreCard" style="display:none;">
-  <div class="score-content">
-    <h2>🚤 Boat Saver</h2>
-    <div class="score-image">
-      <div class="score-boat">🚢</div>
-      <div class="score-time">⏱️ Time Survived</div>
-      <div class="score-value" id="scoreValue">0s</div>
+<!-- Game Over Modal -->
+<div id="gameOverModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>💦 Boat Sunk!</h2>
+    
+    <!-- Score Preview (Canvas will be inserted here) -->
+    <div id="scorePreview">
+      <canvas id="scoreCanvas" width="400" height="350"></canvas>
     </div>
-    <p class="score-message">You saved the boat!</p>
-    <p class="score-date" id="scoreDate"></p>
+    
+    <div class="modal-buttons">
+      <button id="saveScoreBtn" class="modal-btn save-btn">💾 Save Score</button>
+      <button id="playAgainBtn" class="modal-btn play-btn">🔄 Play Again</button>
+    </div>
   </div>
 </div>
 

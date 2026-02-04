@@ -129,32 +129,16 @@ setInterval(spawnEnemy, 2000);
 function endGame() {
   gameOver = true;
   
-  // Show save button
-  const saveBtn = document.getElementById("saveBtn");
-  saveBtn.style.display = "inline-block";
+  // Generate score image
+  generateScoreImage();
   
-  alert("💦 Boat Sunk!\nTime Survived: " + time + "s");
+  // Show modal
+  const modal = document.getElementById("gameOverModal");
+  modal.style.display = "flex";
 }
 
-// ================= SAVE SCORE AS IMAGE =================
-document.getElementById("saveBtn").addEventListener("click", saveScoreAsImage);
-
-function saveScoreAsImage() {
-  const scoreCard = document.getElementById("scoreCard");
-  const scoreValue = document.getElementById("scoreValue");
-  const scoreDate = document.getElementById("scoreDate");
-  
-  // Update score card content
-  scoreValue.textContent = time + "s";
-  const now = new Date();
-  scoreDate.textContent = now.toLocaleDateString() + " " + now.toLocaleTimeString();
-  
-  // Show score card
-  scoreCard.style.display = "block";
-  
-  // Use html2canvas library to capture the score card
-  // For simplicity, we'll use a canvas-based approach
-  const canvas = document.createElement('canvas');
+function generateScoreImage() {
+  const canvas = document.getElementById('scoreCanvas');
   const ctx = canvas.getContext('2d');
   
   canvas.width = 400;
@@ -189,9 +173,15 @@ function saveScoreAsImage() {
   ctx.fillText(time + 's', 200, 290);
   
   // Date
+  const now = new Date();
   ctx.font = '16px Arial';
   ctx.fillStyle = '#CCCCCC';
   ctx.fillText(now.toLocaleDateString() + ' ' + now.toLocaleTimeString(), 200, 320);
+}
+
+// ================= MODAL BUTTON HANDLERS =================
+document.getElementById("saveScoreBtn").addEventListener("click", function() {
+  const canvas = document.getElementById('scoreCanvas');
   
   // Download the image
   canvas.toBlob(function(blob) {
@@ -201,11 +191,9 @@ function saveScoreAsImage() {
     a.download = 'boat-saver-score-' + time + 's.png';
     a.click();
     URL.revokeObjectURL(url);
-    
-    // Hide score card
-    scoreCard.style.display = "none";
-    
-    // Reload after save
-    setTimeout(() => location.reload(), 500);
   });
-}
+});
+
+document.getElementById("playAgainBtn").addEventListener("click", function() {
+  location.reload();
+});
